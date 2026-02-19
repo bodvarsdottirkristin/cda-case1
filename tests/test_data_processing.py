@@ -163,17 +163,3 @@ class TestSaveProcessedData:
         save_processed_data(df, output_file)
 
         assert output_file.exists()
-
-
-# Pytest fixtures
-@pytest.fixture
-def sample_dataframe():
-    """Fixture providing a sample DataFrame for testing."""
-    return pd.DataFrame(
-        {
-            "feature1": np.random.randn(100),
-            "feature2": np.random.randn(100),
-            "feature3": np.random.randn(100),
-            "target": np.random.choice([0, 1], 100),
-        }
-    )
