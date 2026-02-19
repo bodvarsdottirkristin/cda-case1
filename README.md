@@ -72,9 +72,6 @@ pip install -r requirements.txt
 
 ```
 cda-case1/
-├── .github/
-│   └── workflows/          # CI/CD pipelines
-│       └── ci.yml          # Lint and test automation
 ├── data/
 │   ├── raw/                # Original, immutable data
 │   └── processed/          # Cleaned, transformed data
