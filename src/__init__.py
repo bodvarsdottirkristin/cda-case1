@@ -10,8 +10,8 @@ __author__ = "bodvarsdottirkristin"
 
 # Import main functions for convenience
 from .data_processing import load_data, preprocess_data
+from .models import evaluate_model, train_model
 from .visualization import plot_correlation_matrix, plot_pca_variance
-from .models import train_model, evaluate_model
 
 __all__ = [
     "load_data",

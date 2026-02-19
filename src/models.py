@@ -4,7 +4,7 @@ Machine Learning Models Module
 This module contains functions for training and evaluating models.
 """
 
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Optional
 
 import numpy as np
 from sklearn.base import BaseEstimator
@@ -63,7 +63,7 @@ def evaluate_model(
     X_test: np.ndarray,
     y_test: np.ndarray,
     print_report: bool = True,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Evaluate a trained model.
 
@@ -113,7 +113,7 @@ def cross_validate_model(
     y: np.ndarray,
     cv: int = 5,
     scoring: str = "accuracy",
-) -> Tuple[float, float]:
+) -> tuple[float, float]:
     """
     Perform cross-validation on a model.
 
@@ -137,7 +137,7 @@ def cross_validate_model(
     mean_score = scores.mean()
     std_score = scores.std()
 
-    print(f"✓ Cross-validation complete")
+    print("✓ Cross-validation complete")
     print(f"{scoring.capitalize()} scores: {scores}")
     print(f"Mean {scoring}: {mean_score:.4f} (+/- {std_score:.4f})")
 
@@ -148,7 +148,7 @@ def get_feature_importance(
     model: BaseEstimator,
     feature_names: Optional[list] = None,
     top_n: int = 20,
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """
     Get feature importance from a trained model.
 

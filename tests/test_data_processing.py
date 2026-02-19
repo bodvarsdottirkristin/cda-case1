@@ -2,20 +2,21 @@
 Unit tests for data_processing module.
 """
 
+# Add src to path for imports
+import sys
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import pytest
-from pathlib import Path
 
-# Add src to path for imports
-import sys
-sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
 from data_processing import (
     load_data,
     preprocess_data,
-    split_features_target,
     save_processed_data,
+    split_features_target,
 )
 
 
@@ -56,11 +57,13 @@ class TestPreprocessData:
 
     def test_preprocess_with_target(self):
         """Test preprocessing with target column."""
-        df = pd.DataFrame({
-            "feature1": [1, 2, 3, 4, 5],
-            "feature2": [2, 4, 6, 8, 10],
-            "target": [0, 1, 0, 1, 0]
-        })
+        df = pd.DataFrame(
+            {
+                "feature1": [1, 2, 3, 4, 5],
+                "feature2": [2, 4, 6, 8, 10],
+                "target": [0, 1, 0, 1, 0],
+            }
+        )
 
         X, y = preprocess_data(df, target_col="target", scale_features=False)
 
@@ -72,10 +75,7 @@ class TestPreprocessData:
 
     def test_preprocess_without_target(self):
         """Test preprocessing without target column."""
-        df = pd.DataFrame({
-            "feature1": [1, 2, 3, 4, 5],
-            "feature2": [2, 4, 6, 8, 10]
-        })
+        df = pd.DataFrame({"feature1": [1, 2, 3, 4, 5], "feature2": [2, 4, 6, 8, 10]})
 
         result = preprocess_data(df, scale_features=False)
 
@@ -84,11 +84,9 @@ class TestPreprocessData:
 
     def test_preprocess_drop_columns(self):
         """Test dropping specific columns."""
-        df = pd.DataFrame({
-            "feature1": [1, 2, 3],
-            "feature2": [4, 5, 6],
-            "feature3": [7, 8, 9]
-        })
+        df = pd.DataFrame(
+            {"feature1": [1, 2, 3], "feature2": [4, 5, 6], "feature3": [7, 8, 9]}
+        )
 
         result = preprocess_data(df, drop_cols=["feature3"], scale_features=False)
 
@@ -97,10 +95,7 @@ class TestPreprocessData:
 
     def test_preprocess_handle_missing_drop(self):
         """Test handling missing values by dropping."""
-        df = pd.DataFrame({
-            "feature1": [1, 2, np.nan, 4],
-            "feature2": [2, 4, 6, 8]
-        })
+        df = pd.DataFrame({"feature1": [1, 2, np.nan, 4], "feature2": [2, 4, 6, 8]})
 
         result = preprocess_data(df, handle_missing="drop", scale_features=False)
 
@@ -109,18 +104,18 @@ class TestPreprocessData:
 
     def test_preprocess_scaling(self):
         """Test feature scaling."""
-        df = pd.DataFrame({
-            "feature1": [10, 20, 30, 40, 50],
-            "feature2": [100, 200, 300, 400, 500]
-        })
+        df = pd.DataFrame(
+            {"feature1": [10, 20, 30, 40, 50], "feature2": [100, 200, 300, 400, 500]}
+        )
 
         result = preprocess_data(df, scale_features=True)
 
         # Check that mean is close to 0 and std is close to 1
+        # Note: pandas uses ddof=1 by default, so we use ddof=0 for consistency with StandardScaler
         assert abs(result["feature1"].mean()) < 1e-10
         assert abs(result["feature2"].mean()) < 1e-10
-        assert abs(result["feature1"].std() - 1.0) < 0.1
-        assert abs(result["feature2"].std() - 1.0) < 0.1
+        assert abs(result["feature1"].std(ddof=0) - 1.0) < 0.01
+        assert abs(result["feature2"].std(ddof=0) - 1.0) < 0.01
 
 
 class TestSplitFeaturesTarget:
@@ -128,11 +123,9 @@ class TestSplitFeaturesTarget:
 
     def test_split_valid_target(self):
         """Test splitting with valid target column."""
-        df = pd.DataFrame({
-            "feature1": [1, 2, 3],
-            "feature2": [4, 5, 6],
-            "target": [0, 1, 0]
-        })
+        df = pd.DataFrame(
+            {"feature1": [1, 2, 3], "feature2": [4, 5, 6], "target": [0, 1, 0]}
+        )
 
         X, y = split_features_target(df, "target")
 
@@ -142,10 +135,7 @@ class TestSplitFeaturesTarget:
 
     def test_split_invalid_target(self):
         """Test splitting with invalid target column."""
-        df = pd.DataFrame({
-            "feature1": [1, 2, 3],
-            "feature2": [4, 5, 6]
-        })
+        df = pd.DataFrame({"feature1": [1, 2, 3], "feature2": [4, 5, 6]})
 
         with pytest.raises(ValueError):
             split_features_target(df, "nonexistent")
@@ -179,9 +169,11 @@ class TestSaveProcessedData:
 @pytest.fixture
 def sample_dataframe():
     """Fixture providing a sample DataFrame for testing."""
-    return pd.DataFrame({
-        "feature1": np.random.randn(100),
-        "feature2": np.random.randn(100),
-        "feature3": np.random.randn(100),
-        "target": np.random.choice([0, 1], 100)
-    })
+    return pd.DataFrame(
+        {
+            "feature1": np.random.randn(100),
+            "feature2": np.random.randn(100),
+            "feature3": np.random.randn(100),
+            "target": np.random.choice([0, 1], 100),
+        }
+    )

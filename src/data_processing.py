@@ -5,7 +5,7 @@ This module contains functions for loading, cleaning, and preprocessing data.
 """
 
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Optional
 
 import numpy as np
 import pandas as pd
@@ -58,7 +58,7 @@ def preprocess_data(
     drop_cols: Optional[list] = None,
     handle_missing: str = "drop",
     scale_features: bool = True,
-) -> Tuple[pd.DataFrame, Optional[pd.Series]]:
+) -> tuple[pd.DataFrame, Optional[pd.Series]]:
     """
     Preprocess data by handling missing values, dropping columns, and scaling.
 
@@ -111,7 +111,7 @@ def preprocess_data(
 
 def split_features_target(
     df: pd.DataFrame, target_col: str
-) -> Tuple[pd.DataFrame, pd.Series]:
+) -> tuple[pd.DataFrame, pd.Series]:
     """
     Split DataFrame into features and target.
 

@@ -4,7 +4,7 @@ Visualization Module
 This module contains functions for creating plots and visualizations.
 """
 
-from typing import Optional, List, Tuple
+from typing import Optional
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -15,7 +15,7 @@ from sklearn.decomposition import PCA
 
 def plot_correlation_matrix(
     df: pd.DataFrame,
-    figsize: Tuple[int, int] = (12, 10),
+    figsize: tuple[int, int] = (12, 10),
     cmap: str = "coolwarm",
     annot: bool = False,
     save_path: Optional[str] = None,
@@ -59,7 +59,7 @@ def plot_correlation_matrix(
 
 def plot_pca_variance(
     pca: PCA,
-    figsize: Tuple[int, int] = (12, 5),
+    figsize: tuple[int, int] = (12, 5),
     save_path: Optional[str] = None,
 ) -> None:
     """
@@ -78,8 +78,9 @@ def plot_pca_variance(
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=figsize)
 
     # Individual variance explained
-    ax1.bar(range(1, len(pca.explained_variance_ratio_) + 1), 
-            pca.explained_variance_ratio_)
+    ax1.bar(
+        range(1, len(pca.explained_variance_ratio_) + 1), pca.explained_variance_ratio_
+    )
     ax1.set_xlabel("Principal Component")
     ax1.set_ylabel("Variance Explained")
     ax1.set_title("Variance Explained by Each Component")
@@ -106,9 +107,9 @@ def plot_pca_variance(
 
 def plot_feature_distributions(
     df: pd.DataFrame,
-    features: Optional[List[str]] = None,
+    features: Optional[list[str]] = None,
     n_cols: int = 3,
-    figsize: Optional[Tuple[int, int]] = None,
+    figsize: Optional[tuple[int, int]] = None,
     save_path: Optional[str] = None,
 ) -> None:
     """
@@ -158,8 +159,8 @@ def plot_feature_distributions(
 
 def plot_confusion_matrix(
     cm: np.ndarray,
-    labels: Optional[List[str]] = None,
-    figsize: Tuple[int, int] = (8, 6),
+    labels: Optional[list[str]] = None,
+    figsize: tuple[int, int] = (8, 6),
     save_path: Optional[str] = None,
 ) -> None:
     """
