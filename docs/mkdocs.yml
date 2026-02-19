@@ -1,0 +1,67 @@
+site_name: CDA Case 1 Documentation
+site_description: Documentation for the High-Dimensional Standoff data science project
+site_author: bodvarsdottirkristin
+repo_url: https://github.com/bodvarsdottirkristin/cda-case1
+repo_name: bodvarsdottirkristin/cda-case1
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: true
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quick-start.md
+  - User Guide:
+      - Data Processing: user-guide/data-processing.md
+      - Visualization: user-guide/visualization.md
+      - Modeling: user-guide/modeling.md
+  - API Reference:
+      - Data Processing: api/data_processing.md
+      - Visualization: api/visualization.md
+      - Models: api/models.md
+  - About:
+      - Contributing: about/contributing.md
+      - License: about/license.md
