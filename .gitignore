@@ -101,7 +101,6 @@ dmypy.json
 .pyre/
 
 # Data files (don't commit large datasets)
-*.csv
 *.xlsx
 *.xls
 *.parquet
@@ -128,3 +127,5 @@ Thumbs.db
 # uv
 .uv/
 uv.lock
+
+.history
